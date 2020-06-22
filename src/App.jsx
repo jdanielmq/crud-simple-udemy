@@ -35,11 +35,15 @@ function App() {
           <div className="col-8">
             <h4 className="text-center">Lista de Tarea</h4> 
             <ul className="list-group">
-              <li className="list-group-item">
-                <span className="lead">Tarea #1</span>
-                <button className="btn btn-sm btn-danger float-right mx-2">Eliminar</button>
-                <button className="btn btn-sm btn-warning float-right">Editar</button>
-              </li>
+            {
+              tareas.map(item =>(
+                <li className="list-group-item" key={item.id}>
+                  <span className="lead">{item.tarea}</span>
+                  <button className="btn btn-sm btn-danger float-right mx-2">Eliminar</button>
+                  <button className="btn btn-sm btn-warning float-right">Editar</button>
+                </li>
+              ))
+            }
             </ul>
           </div>
           <div className="col-4">
