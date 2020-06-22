@@ -1,12 +1,13 @@
 import React from 'react';
 
+const shortid = require('shortid');
+
+
 function App() {
 
   const [tarea, setTarea] = React.useState('');
-
   const [tareas, setTareas] = React.useState([]);
-
-  const shortid = require('shortid');
+  const [modoEdicion, setModoEdicion] = React.useState(false);
 
   const agregarTarea = e =>{
     e.preventDefault()
@@ -25,11 +26,19 @@ function App() {
     setTarea('');
   }
 
+
   const eliminarTarea = id => {
     const arrayFiltrado = tareas.filter(item => item.id !== id);
     setTareas(arrayFiltrado);
   }
 
+  const editar = item => {
+
+    console.log(item.tarea);
+    setModoEdicion(true);
+    setTarea(item.tarea);
+
+  }
 
   return (
     <div className="container">
@@ -51,7 +60,7 @@ function App() {
                   </button>
                   <button 
                     className="btn btn-sm btn-warning float-right"
-                    
+                    onClick={()=> editar(item)}
                     >
                     Editar
                   </button>
@@ -61,7 +70,11 @@ function App() {
             </ul>
           </div>
           <div className="col-4">
-            <h4 className="text-center">Formulario</h4>
+            <h4 className="text-center">
+              {
+                modoEdicion ? 'Editar Tarea' : 'Agregar Tarea'
+              }
+              </h4>
             <form onSubmit={ agregarTarea }>
               <input 
                 type="text" 
@@ -70,7 +83,13 @@ function App() {
                 onChange={e => setTarea(e.target.value)}
                 value={ tarea }
               />
-              <button className="btn btn-dark btn-block" type="submit">Agregar</button>
+              {
+                modoEdicion ? (
+                  <button className="btn btn-warning btn-block" type="submit">Editar</button>
+                ):(
+                  <button className="btn btn-dark btn-block" type="submit">Agregar</button>
+                )
+              }
             </form>            
           </div>
       </div>
