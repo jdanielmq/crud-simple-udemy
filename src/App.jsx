@@ -15,7 +15,6 @@ function App() {
       console.log('Elemento tarea viene vacio');
       return;
     }
-
     console.log(tarea);
 
     setTareas([
@@ -24,6 +23,11 @@ function App() {
     ]);
 
     setTarea('');
+  }
+
+  const eliminarTarea = id => {
+    const arrayFiltrado = tareas.filter(item => item.id !== id);
+    setTareas(arrayFiltrado);
   }
 
 
@@ -39,8 +43,18 @@ function App() {
               tareas.map(item =>(
                 <li className="list-group-item" key={item.id}>
                   <span className="lead">{item.tarea}</span>
-                  <button className="btn btn-sm btn-danger float-right mx-2">Eliminar</button>
-                  <button className="btn btn-sm btn-warning float-right">Editar</button>
+                  <button 
+                    className="btn btn-sm btn-danger float-right mx-2"
+                    onClick={() => eliminarTarea(item.id)}
+                    >
+                    Eliminar
+                  </button>
+                  <button 
+                    className="btn btn-sm btn-warning float-right"
+                    
+                    >
+                    Editar
+                  </button>
                 </li>
               ))
             }
